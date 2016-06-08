@@ -2,17 +2,24 @@ package main
 
 import (
     "fmt"
-    "os"
-    // "io/ioutil"
+    "io/ioutil"
     // "log"
     "net/http"
 )
 
 
-
 func main() {
-    file_path := http.Dir(".")
-    file, _ := file_path.Open("client.go")
-    buf := [1024]byte{}
-    fmt.Printf(string(buf))
+    resp, err := http.Get("http://o8cpu8afd.bkt.clouddn.com/Vintage.png")
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    defer resp.Body.Close()
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        fmt.Printf("Wrong here!")
+    }else {
+        fmt.Println(len(body))
+    }
+    
 }
